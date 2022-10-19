@@ -1,11 +1,24 @@
 from django.shortcuts import render, redirect
 from .models import Articles
 from .forms import ArticlesForm
+from django.views.generic import DetailView, UpdateView
 
 
 def news_home(request):
     news = Articles.objects.all()
     return render(request, 'news/news_home.html', {'news': news})
+
+
+class NewsDetailView(DetailView):
+    model = Articles
+    template_name = 'news/details_view.html'
+    context_object_name = 'article'
+
+
+class NewsUpdateView(UpdateView):
+    model = Articles
+    template_name = 'news/details_view.html'
+
 
 
 def create(request):
